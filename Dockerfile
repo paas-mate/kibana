@@ -1,6 +1,9 @@
-FROM ttbb/base
+FROM shoothzj/base
 
-WORKDIR /opt/sh
+RUN groupadd sh -g 1024 && \
+    useradd -r -g sh sh -u 1024 -m -d /home/sh
+
+WORKDIR /opt
 
 ARG TARGETARCH
 
@@ -13,11 +16,11 @@ RUN if [[ "$TARGETARCH" = "amd64" ]]; \
     else download=$arm_download; \
     fi && \
     wget https://artifacts.elastic.co/downloads/kibana/kibana-$download.tar.gz && \
-    mkdir /opt/sh/kibana && \
-    tar -xf kibana-$download.tar.gz -C /opt/sh/kibana --strip-components 1 && \
+    mkdir /opt/kibana && \
+    tar -xf kibana-$download.tar.gz -C /opt/kibana --strip-components 1 && \
     rm -rf kibana-$download.tar.gz && \
-    chown -R sh:sh /opt/sh
+    chown -R sh:sh /opt/kibana
 
-ENV KIBANA_HOME /opt/sh/kibana
+ENV KIBANA_HOME /opt/kibana
 
-WORKDIR /opt/sh/kibana
+WORKDIR /opt/kibana
