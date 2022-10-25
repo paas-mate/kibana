@@ -15,7 +15,7 @@ RUN if [ "$TARGETARCH" = "amd64" ]; \
     then download=$amd_download; \
     else download=$arm_download; \
     fi && \
-    wget https://artifacts.elastic.co/downloads/kibana/kibana-$download.tar.gz && \
+    wget -q https://artifacts.elastic.co/downloads/kibana/kibana-$download.tar.gz && \
     mkdir /opt/kibana && \
     tar -xf kibana-$download.tar.gz -C /opt/kibana --strip-components 1 && \
     rm -rf kibana-$download.tar.gz && \
