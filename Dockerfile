@@ -4,9 +4,9 @@ WORKDIR /opt/sh
 
 ARG TARGETARCH
 
-ARG amd_download=7.17.5-linux-x86_64
+ARG amd_download=7.17.6-linux-x86_64
 
-ARG arm_download=7.17.5-linux-aarch64
+ARG arm_download=7.17.6-linux-aarch64
 
 RUN if [[ "$TARGETARCH" = "amd64" ]]; \
     then download=$amd_download; \
@@ -17,5 +17,7 @@ RUN if [[ "$TARGETARCH" = "amd64" ]]; \
     tar -xf kibana-$download.tar.gz -C /opt/sh/kibana --strip-components 1 && \
     rm -rf kibana-$download.tar.gz && \
     chown -R sh:sh /opt/sh
+
+ENV KIBANA_HOME /opt/sh/kibana
 
 WORKDIR /opt/sh/kibana
