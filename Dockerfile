@@ -7,9 +7,9 @@ WORKDIR /opt
 
 ARG TARGETARCH
 
-ARG amd_download=8.4.3-linux-x86_64
+ARG amd_download=8.6.0-linux-x86_64
 
-ARG arm_download=8.4.3-linux-aarch64
+ARG arm_download=8.6.0-linux-aarch64
 
 RUN if [ "$TARGETARCH" = "amd64" ]; \
     then download=$amd_download; \
