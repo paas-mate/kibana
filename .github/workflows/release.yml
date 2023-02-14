@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - 7.x
   workflow_dispatch:
 
 permissions:
@@ -32,14 +32,14 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ttbb/kibana:nake
+          tags: ttbb/kibana:nake-7
           platforms: linux/amd64,linux/arm64
       - name: Save Docker Images
-        run: docker pull ttbb/kibana:nake;docker save ttbb/kibana:nake -o kibana-nake.tar.gz
+        run: docker pull ttbb/kibana:nake-7;docker save ttbb/kibana:nake-7 -o kibana-nake.tar.gz
       - uses: dev-drprasad/delete-tag-and-release@v0.2.0
         with:
           delete_release: true
-          tag_name: latest_docker_image
+          tag_name: latest_docker_image_7_x
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_GITHUB_TOKEN }}
 
@@ -47,7 +47,7 @@ jobs:
         uses: tvdias/github-tagger@v0.0.2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          tag: latest_docker_image
+          tag: latest_docker_image_7_x
 
       # Creates the new release with the binary as a release asset.
       # If the previous Action was skipped, then this keeps the same tag as the
@@ -55,9 +55,9 @@ jobs:
       - name: Create new release
         uses: softprops/action-gh-release@v1
         with:
-          body: "Latest docker image"
-          name: "latest docker image"
-          tag_name: latest_docker_image
+          body: "Latest 7.x docker image"
+          name: "latest 7.x docker image"
+          tag_name: latest_docker_image_7_x
           files: kibana-nake.tar.gz
           draft: false
           prerelease: false
